@@ -29,4 +29,4 @@ jobs:
 
       - name: 'Build and Push to Artifact Registry'
         run: |
-          gcloud builds submit --tag ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/notely-ar-repo/notely:latest .
+          gcloud builds submit --region ${{ secrets.GCP_REGION }} --tag ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/notely-ar-repo/notely:latest .
