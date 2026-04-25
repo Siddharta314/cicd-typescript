@@ -20,5 +20,14 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Deploy
-        run: echo "Deploying..."
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: 'Build and Push to Artifact Registry'
+        run: |
+          gcloud builds submit --tag ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/notely-ar-repo/notely:latest .
